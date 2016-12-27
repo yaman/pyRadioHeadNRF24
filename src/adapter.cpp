@@ -2,10 +2,10 @@
 #include <signal.h>
 #include <unistd.h>
 #include <string.h>
-#include <RH_NRF24.h>
+#include <RH_RF24.h>
 #include <RHReliableDatagram.h>
 
-RH_NRF24 radio(RPI_V2_GPIO_P1_22, RPI_V2_GPIO_P1_24);
+RH_RF24 radio(RPI_V2_GPIO_P1_22, RPI_V2_GPIO_P1_24);
 RHReliableDatagram* manager = NULL;
 
 int _init() {
@@ -22,47 +22,45 @@ int _init() {
 }
 
 int _setChannel(int c) {
-	bool b = radio.setChannel(c);
-	if (b) return 0;
-	else return -1;
+//	bool b = radio.setChannel(c);
+//	if (b) return 0;
+//	else return -1;
+	return 0;
 }
 
 int _setRF(int dr, int tp) {
 
-	RH_NRF24::DataRate datarate;
-	RH_NRF24::TransmitPower transmitpower;
+/*	RH_RF24::DataRate datarate;
+	RH_RF24::TransmitPower transmitpower;
 	
-	/* Data Rate */
 	switch (dr) {
 		case 1:
-			datarate = RH_NRF24::DataRate1Mbps;
+			datarate = RH_RF24::DataRate1Mbps;
 			break;
 
 		case 2:
-			datarate = RH_NRF24::DataRate2Mbps;
+			datarate = RH_RF24::DataRate2Mbps;
 			break;
 
 		default:
 			printf("Invalid Argument: DataRate\n");
 			return -1;
 	}
-
-	/* Transmit Power */
 	switch (tp) {
 		case 18:
-			transmitpower = RH_NRF24::TransmitPowerm18dBm;
+			transmitpower = RH_RF24::TransmitPowerm18dBm;
 			break;
 	
 		case 12:
-			transmitpower = RH_NRF24::TransmitPowerm12dBm;
+			transmitpower = RH_RF24::TransmitPowerm12dBm;
 			break;
 	
 		case 6:
-			transmitpower = RH_NRF24::TransmitPowerm6dBm;
+			transmitpower = RH_RF24::TransmitPowerm6dBm;
 			break;
 	
 		case 0:
-			transmitpower = RH_NRF24::TransmitPower0dBm;
+			transmitpower = RH_RF24::TransmitPower0dBm;
 			break;
 	
 		default:
@@ -73,6 +71,8 @@ int _setRF(int dr, int tp) {
 	bool b = radio.setRF(datarate, transmitpower);
 	if (b) return 0;
 	else return -1; 
+	*/
+	return 0;
 }
 
 int _send(uint8_t* data, uint8_t len) {
@@ -103,7 +103,7 @@ int _available() {
 }
 
 int _recv(char* buf, uint8_t* len) {
-	uint8_t buf2[RH_NRF24_MAX_MESSAGE_LEN];
+	uint8_t buf2[RH_RF24_MAX_MESSAGE_LEN];
 	uint8_t len2 = sizeof(buf2);
 	
 	bool b = radio.recv(buf2, &len2);
@@ -122,14 +122,16 @@ int _maxMessageLength() {
 }
 
 int _setNetworkAddress(uint8_t* address, uint8_t len) {
-	bool b = radio.setNetworkAddress(address, len);
+/*	bool b = radio.setNetworkAddress(address, len);
 	if (b) return 0;
 	else return -1;
+*/
+	return 0;
 }
 
-int _isSending() {
+/*int _isSending() {
 	return (int) radio.isSending();
-}
+}*/
 
 int _printRegisters() {
 	bool b = radio.printRegisters();
@@ -156,7 +158,7 @@ int _managerInit(int address) {
 }
 
 int _recvfromAck(char* buf, uint8_t* len, uint8_t* from) {
-	uint8_t buf2[RH_NRF24_MAX_MESSAGE_LEN];
+	uint8_t buf2[RH_RF24_MAX_MESSAGE_LEN];
 	uint8_t len2 = sizeof(buf2);
 	uint8_t from2;
 		
@@ -171,7 +173,7 @@ int _recvfromAck(char* buf, uint8_t* len, uint8_t* from) {
 }
 
 int _recvfromAckTimeout(char* buf, uint8_t* len, uint16_t timeout, uint8_t* from) {
-	uint8_t buf2[RH_NRF24_MAX_MESSAGE_LEN];
+	uint8_t buf2[RH_RF24_MAX_MESSAGE_LEN];
 	uint8_t len2 = sizeof(buf2);
 	uint8_t from2;
 
@@ -257,10 +259,10 @@ extern "C" {
 		return _maxMessageLength();
 	}
 
-	extern int isSending() {
+/*	extern int isSending() {
 		return _isSending();
 	}
-
+*/
 	extern int printRegisters() {
 		return _printRegisters();
 	}

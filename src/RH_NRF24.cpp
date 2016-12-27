@@ -5,6 +5,9 @@
 
 #include <RH_NRF24.h>
 
+#define HIGH 0x1
+#define LOW 0x0
+
 RH_NRF24::RH_NRF24(uint8_t chipEnablePin, uint8_t slaveSelectPin, RHGenericSPI& spi)
     :
     RHNRFSPIDriver(slaveSelectPin, spi),

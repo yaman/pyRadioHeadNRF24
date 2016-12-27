@@ -809,6 +809,7 @@
  #define PROGMEM
  #include <RHutil/RasPi.h>
  #include <string.h>
+ #define memcpy_P memcpy
  //Define SS for CS0 or pin 24
  #define SS 8
 
@@ -819,7 +820,7 @@
 
 #elif (RH_PLATFORM == RH_PLATFORM_UNIX) 
  // Simulate the sketch on Linux and OSX
- #include <RHutil/simulator.h>
+// #include <RHutil/simulator.h>
  #define RH_HAVE_SERIAL
 #include <netinet/in.h> // For htons and friends
 

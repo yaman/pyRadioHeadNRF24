@@ -50,7 +50,7 @@ class nRF24:
 	  	  int resetRetransmissions();")
 	
 		global radiohead 
-		#radiohead = ffi.dlopen("./libradiohead.so")
+		radiohead = ffi.dlopen("./libradiohead.so")
 		path_string = os.path.dirname(__file__) + "/libradiohead.so"
 		radiohead = ffi.dlopen(path_string)
 
@@ -59,6 +59,7 @@ class nRF24:
 		r = radiohead.init()
 		if r != 0:
 			raise RuntimeError("nRF24 init failed")
+                print("radiohead is ready!")
 
 	def managerInit(self, address):
 		radiohead.managerInit(address)

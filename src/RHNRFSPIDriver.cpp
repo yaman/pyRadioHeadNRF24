@@ -5,6 +5,9 @@
 
 #include <RHNRFSPIDriver.h>
 
+#define HIGH 0x1
+#define LOW 0x0
+
 RHNRFSPIDriver::RHNRFSPIDriver(uint8_t slaveSelectPin, RHGenericSPI& spi)
     : 
     _spi(spi),
